@@ -1,7 +1,7 @@
 package com.dgmf.service.impl;
 
-import com.dgmf.dto.StudentDtoRequest;
-import com.dgmf.dto.StudentDtoResponse;
+import com.dgmf.web.dto.StudentDtoRequest;
+import com.dgmf.web.dto.StudentDtoResponse;
 import com.dgmf.exception.StudentAlreadyExistsException;
 import com.dgmf.exception.StudentNotFoundException;
 import com.dgmf.entity.Student;
@@ -84,12 +84,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(Long studentDtoRequestId) {
+    public String deleteStudent(Long studentDtoRequestId) {
         if(!studentRepository.existsById(studentDtoRequestId)) {
             throw new StudentNotFoundException("Sorry, Student Not Found !");
         }
 
         studentRepository.deleteById(studentDtoRequestId);
+
+        return "Student Deleted Successfully";
     }
 
     private StudentDtoResponse mapStudentToDto(Student student) {
